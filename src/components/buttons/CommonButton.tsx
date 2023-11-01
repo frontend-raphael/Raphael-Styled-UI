@@ -1,26 +1,9 @@
-import { CommonComponentProps } from "@/types/component/CommonComponentProps";
-import { RaphaelColor } from "@/types/css/Color";
-import { RaphaelSize } from "@/types/css/Size";
 import { defaultPalette } from "@/resources/colors/colors";
 import styled from "styled-components";
-
-interface CommonButtonAttributes extends CommonComponentProps {
-  $width?: RaphaelSize;
-  $height?: RaphaelSize;
-  $padding?: RaphaelSize;
-  $fontSize?: RaphaelSize;
-  $backgroundColor?: RaphaelColor;
-  $color?: RaphaelColor;
-  $hoverBackgroundColor?: RaphaelColor;
-  $hoverColor?: RaphaelColor;
-  $borderRadius?: RaphaelSize;
-  $onClick?: () => void;
-}
-
-interface CommonButtonProps extends CommonButtonAttributes {
-  label: string;
-  isEnabled?: boolean;
-}
+import {
+  CommonButtonAttributes,
+  CommonButtonProps,
+} from "@/types/component/button/CommonButtonAttributes";
 
 const CommonButton = ({
   label = "",
@@ -29,6 +12,7 @@ const CommonButton = ({
   $height = "fit-content",
   $padding = "10px",
   $fontSize = "16px",
+  $fontWeight = 400,
   $backgroundColor = defaultPalette.primaryColor,
   $color = defaultPalette.mainFontColor,
   $hoverBackgroundColor = defaultPalette.lightPrimaryColor,
@@ -45,6 +29,7 @@ const CommonButton = ({
           $height={$height}
           $padding={$padding}
           $fontSize={$fontSize}
+          $fontWeight={$fontWeight}
           $backgroundColor={$backgroundColor}
           $color={$color}
           $hoverBackgroundColor={$hoverBackgroundColor}
@@ -61,6 +46,7 @@ const CommonButton = ({
           $height={$height}
           $padding={$padding}
           $fontSize={$fontSize}
+          $fontWeight={$fontWeight}
           $backgroundColor={$backgroundColor}
           $color={$color}
           $hoverBackgroundColor={$hoverBackgroundColor}
@@ -84,11 +70,13 @@ const CommonButtonWrapper = styled.div<CommonButtonAttributes>`
   height: ${(props) => props.$height};
   padding: ${(props) => props.$padding};
   font-size: ${(props) => props.$fontSize};
+  font-weight: ${(props) => props.$fontWeight};
   background-color: ${(props) => props.$backgroundColor};
   color: ${(props) => props.$color};
   border-radius: ${(props) => props.$borderRadius};
   cursor: pointer;
   text-align: center;
+  box-sizing: border-box;
 
   &:hover {
     background-color: ${(props) => props.$hoverBackgroundColor};
@@ -102,8 +90,10 @@ const DisableCommonButtonWrapper = styled.div<CommonButtonAttributes>`
   height: ${(props) => props.$height};
   padding: ${(props) => props.$padding};
   font-size: ${(props) => props.$fontSize};
+  font-weight: ${(props) => props.$fontWeight};
   background-color: ${defaultPalette.disable};
   border-radius: ${(props) => props.$borderRadius};
   text-align: center;
+  box-sizing: border-box;
   color: ${defaultPalette.subFontColor};
 `;
