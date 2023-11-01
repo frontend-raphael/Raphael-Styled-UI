@@ -30,9 +30,9 @@ const CommonButton = ({
   $padding = "10px",
   $fontSize = "16px",
   $backgroundColor = defaultPalette.primaryColor,
-  $color = defaultPalette.white,
+  $color = defaultPalette.mainFontColor,
   $hoverBackgroundColor = defaultPalette.lightPrimaryColor,
-  $hoverColor = defaultPalette.white,
+  $hoverColor = defaultPalette.mainFontColor,
   $borderRadius = "10px",
   $onClick = () => {},
   className = "",
@@ -105,5 +105,5 @@ const DisableCommonButtonWrapper = styled.div<CommonButtonAttributes>`
   background-color: ${defaultPalette.disable};
   border-radius: ${(props) => props.$borderRadius};
   text-align: center;
-  color: ${defaultPalette.lightBlack};
+  color: ${defaultPalette.subFontColor};
 `;
