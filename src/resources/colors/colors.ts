@@ -1,9 +1,14 @@
 const defaultPalette = {
-  primaryColor: "#9A20FA",
-  subColor: "#A593E0",
+  primaryColor: "#3649F5",
+  lightPrimaryColor: "#3686F5",
+  subColor: "#00A1DE",
   white: "#FFFFF3",
-  lightBlack: "#E0E3DA",
-  black: "#566270",
+  lightBlack: "#9F9F9F",
+  black: "#353839",
+  error: "#CB2C31",
+  warning: "#FFC663",
+  success: "#12AF83",
+  disable: "#BBCCDD",
 } as const;
 
 export { defaultPalette };

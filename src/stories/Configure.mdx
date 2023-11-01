@@ -2,4 +2,134 @@ import { Meta } from "@storybook/blocks";
 
 <Meta title="Raphael-Styled-UI" />
 
-<div>Hello</div>
+<div>
+  <h1>Default Color</h1>
+  <div className="color-container">
+    <h3>PrimaryColor (#3649F5)</h3>
+    <div className="color-primaryColor"></div>
+  </div>
+  <div className="color-container">
+    <h3>LightPrimaryColor (#3686F5)</h3>
+    <div className="color-LightPrimaryColor"></div>
+  </div>
+  <div className="color-container">
+    <h3>SubColor (#00A1DE)</h3>
+    <div className="color-subColor"></div>
+  </div>
+  <div className="color-container">
+    <h3>White (#FFFFF3)</h3>
+    <div className="color-white"></div>
+  </div>
+  <div className="color-container">
+    <h3>LightBlack (#9F9F9F)</h3>
+    <div className="color-lightBlack"></div>
+  </div>
+  <div className="color-container">
+    <h3>Black (#353839)</h3>
+    <div className="color-black"></div>
+  </div>
+  <div className="color-container">
+    <h3>ETC</h3>
+    <div className="etc-color-container">
+      <div className="color-container">
+        <h3>Error (#CB2C31)</h3>
+        <div className="color-error"></div>
+      </div>
+      <div className="color-container">
+        <h3>Warning (#FFC663)</h3>
+        <div className="color-warning"></div>
+      </div>
+      <div className="color-container">
+        <h3>Success (#12AF83)</h3>
+        <div className="color-success"></div>
+      </div>
+      <div className="color-container">
+        <h3>Disable (#BBCCDD)</h3>
+        <div className="color-disable"></div>
+      </div>
+    </div>
+  </div>
+
+{" "}
+
+<hr />
+
+  <h1>Types</h1>
+  <div className="types-container">
+    <h3>RaphaelColor (HexColor | RGB | RGBA )</h3>
+    <div className="types-item">HexColor: `#${string}`</div>
+    <div className="types-item">RGB: `rgb(${number}, ${number}, ${number})`</div>
+    <div className="types-item">RGBA: `rgba(${number}, ${number}, ${number}, ${number})`</div>
+  </div>
+  <div className="types-container">
+    <h3>RaphaelSize (Percentage | Pixel | Rem | ViewportWidth | ViewportHeight | Point | FitContent | MatchParent)</h3>
+    <div className="types-item">Percentage: `${number}%`</div>
+    <div className="types-item">Pixel: `${number}px`</div>
+    <div className="types-item">Rem: `${number}rem`</div>
+    <div className="types-item">ViewportWidth: `${number}vw`</div>
+    <div className="types-item">ViewportHeight: `${number}vh`</div>
+    <div className="types-item">Point: `${number}pt`</div>
+    <div className="types-item">FitContent: `fit-content`</div>
+    <div className="types-item">MatchParent: `100%`</div>
+  </div>
+</div>
+
+<style>
+  {`
+    .color-container {
+        padding: 10px 0;
+    }
+    .color-primaryColor {
+      height: 50px;
+      background-color: #3649F5;
+    }
+    .color-LightPrimaryColor {
+        height: 50px;
+        background-color: #3686F5;
+    }
+    .color-subColor {
+        height: 50px;
+        background-color: #00A1DE;
+    }
+    .color-white {
+        height: 50px;
+        background-color: #FFFFF3;
+    }
+    .color-lightBlack {
+        height: 50px;
+        background-color: #9F9F9F;
+    }
+    .color-black {
+        height: 50px;
+        background-color: #353839;
+    }
+    .color-error {
+        height: 50px;
+        background-color: #CB2C31;
+    }
+    .color-warning {
+        height: 50px;
+        background-color: #FFC663;
+    }
+    .color-success {
+        height: 50px;
+        background-color: #12AF83;
+    }
+    .color-disable {
+        height: 50px;
+        background-color: #BBCCDD;
+    }
+
+    .etc-color-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .types-container {
+        padding: 10px 0;
+    }
+    .types-item {
+        padding: 5px 0;
+    }
+  `}
+</style>
