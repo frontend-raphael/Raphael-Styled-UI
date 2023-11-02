@@ -1,4 +1,4 @@
-import IconImage from "@/components/images/IconImage";
+import { IconImage } from "@/components";
 import type { Meta, StoryObj } from "@storybook/react";
 const meta = {
   component: IconImage,
