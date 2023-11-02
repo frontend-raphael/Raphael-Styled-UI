@@ -1,99 +1,72 @@
-import { defaultPalette } from "@/resources/colors/colors";
-import styled from "styled-components";
+import { defaultPalette } from "@/resources";
 import {
   CommonButtonAttributes,
   CommonButtonProps,
-} from "@/types/component/button/CommonButtonAttributes";
+} from "@/types/component/button";
+import styled from "styled-components";
 
 const CommonButton = ({
-  label = "",
-  isEnabled = true,
-  $width = "fit-content",
-  $height = "fit-content",
-  $padding = "10px",
-  $fontSize = "16px",
-  $fontWeight = 400,
-  $backgroundColor = defaultPalette.primaryColor,
-  $color = defaultPalette.mainFontColor,
-  $hoverBackgroundColor = defaultPalette.lightPrimaryColor,
-  $hoverColor = defaultPalette.mainFontColor,
-  $borderRadius = "10px",
-  $onClick = () => {},
+  buttonLabel = "",
+  isButtonDisabled = false,
+  $buttonWidth = "fit-content",
+  $buttonHeight = "fit-content",
+  $buttonPadding = "10px",
+  $buttonFontSize = "16px",
+  $buttonFontWeight = 400,
+  $buttonBackgroundColor = defaultPalette.primaryColor,
+  $buttonColor = defaultPalette.mainFontColor,
+  $buttonHoverBackgroundColor = defaultPalette.lightPrimaryColor,
+  $buttonHoverColor = defaultPalette.mainFontColor,
+  $buttonBorderRadius = "10px",
+  onClick = () => {},
   className = "",
 }: CommonButtonProps) => {
   return (
-    <>
-      {isEnabled ? (
-        <CommonButtonWrapper
-          $width={$width}
-          $height={$height}
-          $padding={$padding}
-          $fontSize={$fontSize}
-          $fontWeight={$fontWeight}
-          $backgroundColor={$backgroundColor}
-          $color={$color}
-          $hoverBackgroundColor={$hoverBackgroundColor}
-          $hoverColor={$hoverColor}
-          $borderRadius={$borderRadius}
-          onClick={$onClick}
-          className={className}
-        >
-          {label}
-        </CommonButtonWrapper>
-      ) : (
-        <DisableCommonButtonWrapper
-          $width={$width}
-          $height={$height}
-          $padding={$padding}
-          $fontSize={$fontSize}
-          $fontWeight={$fontWeight}
-          $backgroundColor={$backgroundColor}
-          $color={$color}
-          $hoverBackgroundColor={$hoverBackgroundColor}
-          $hoverColor={$hoverColor}
-          $borderRadius={$borderRadius}
-          onClick={$onClick}
-          className={className}
-        >
-          {label}
-        </DisableCommonButtonWrapper>
-      )}
-    </>
+    <StyledCommonButton
+      $buttonWidth={$buttonWidth}
+      $buttonHeight={$buttonHeight}
+      $buttonPadding={$buttonPadding}
+      $buttonFontSize={$buttonFontSize}
+      $buttonFontWeight={$buttonFontWeight}
+      $buttonBackgroundColor={$buttonBackgroundColor}
+      $buttonColor={$buttonColor}
+      $buttonHoverBackgroundColor={$buttonHoverBackgroundColor}
+      $buttonHoverColor={$buttonHoverColor}
+      $buttonBorderRadius={$buttonBorderRadius}
+      onClick={onClick}
+      disabled={isButtonDisabled}
+      className={className}
+    >
+      {buttonLabel}
+    </StyledCommonButton>
   );
 };
 
 export default CommonButton;
 
-const CommonButtonWrapper = styled.div<CommonButtonAttributes>`
-  display: inline-block;
-  width: ${(props) => props.$width};
-  height: ${(props) => props.$height};
-  padding: ${(props) => props.$padding};
-  font-size: ${(props) => props.$fontSize};
-  font-weight: ${(props) => props.$fontWeight};
-  background-color: ${(props) => props.$backgroundColor};
-  color: ${(props) => props.$color};
-  border-radius: ${(props) => props.$borderRadius};
+const StyledCommonButton = styled.button<CommonButtonAttributes>`
+  width: ${(props) => props.$buttonWidth};
+  height: ${(props) => props.$buttonHeight};
+  padding: ${(props) => props.$buttonPadding};
+  font-size: ${(props) => props.$buttonFontSize};
+  font-weight: ${(props) => props.$buttonFontWeight};
+  background-color: ${(props) => props.$buttonBackgroundColor};
+  color: ${(props) => props.$buttonColor};
+  border-radius: ${(props) => props.$buttonBorderRadius};
   cursor: pointer;
-  text-align: center;
   box-sizing: border-box;
+  border: none;
 
   &:hover {
-    background-color: ${(props) => props.$hoverBackgroundColor};
-    color: ${(props) => props.$hoverColor};
+    background-color: ${(props) => props.$buttonHoverBackgroundColor};
+    color: ${(props) => props.$buttonHoverColor};
+  }
+
+  &:disabled {
+    background-color: ${defaultPalette.disable};
+    color: ${defaultPalette.subFontColor};
+    cursor: none;
   }
 `;
 
-const DisableCommonButtonWrapper = styled.div<CommonButtonAttributes>`
-  display: inline-block;
-  width: ${(props) => props.$width};
-  height: ${(props) => props.$height};
-  padding: ${(props) => props.$padding};
-  font-size: ${(props) => props.$fontSize};
-  font-weight: ${(props) => props.$fontWeight};
-  background-color: ${defaultPalette.disable};
-  border-radius: ${(props) => props.$borderRadius};
-  text-align: center;
-  box-sizing: border-box;
-  color: ${defaultPalette.subFontColor};
-`;
+export { StyledCommonButton };

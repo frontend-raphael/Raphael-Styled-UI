@@ -1,24 +1,23 @@
-import { RaphaelColor } from "@/types/css/Color";
-import { RaphaelSize } from "@/types/css/Size";
-import { CommonComponentProps } from "../CommonComponentProps";
+import { RaphaelColor, RaphaelSize } from "@/types/css";
+import { CommonComponentProps } from "..";
 
 interface CommonButtonAttributes extends CommonComponentProps {
-  $width?: RaphaelSize;
-  $height?: RaphaelSize;
-  $padding?: RaphaelSize;
-  $fontSize?: RaphaelSize;
-  $fontWeight?: number;
-  $backgroundColor?: RaphaelColor;
-  $color?: RaphaelColor;
-  $hoverBackgroundColor?: RaphaelColor;
-  $hoverColor?: RaphaelColor;
-  $borderRadius?: RaphaelSize;
-  $onClick?: () => void;
+  $buttonWidth?: RaphaelSize;
+  $buttonHeight?: RaphaelSize;
+  $buttonPadding?: RaphaelSize;
+  $buttonFontSize?: RaphaelSize;
+  $buttonFontWeight?: number;
+  $buttonBackgroundColor?: RaphaelColor;
+  $buttonColor?: RaphaelColor;
+  $buttonHoverBackgroundColor?: RaphaelColor;
+  $buttonHoverColor?: RaphaelColor;
+  $buttonBorderRadius?: RaphaelSize;
+  onClick?: () => void;
 }
 
 interface CommonButtonProps extends CommonButtonAttributes {
-  label: string;
-  isEnabled?: boolean;
+  buttonLabel: string;
+  isButtonDisabled?: boolean;
 }
 
 export type { CommonButtonAttributes, CommonButtonProps };

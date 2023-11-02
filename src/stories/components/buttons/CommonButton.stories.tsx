@@ -5,16 +5,16 @@ const meta = {
   title: "components/buttons/CommonButton",
   tags: ["autodocs"],
   argTypes: {
-    $width: { control: "text" },
-    $height: { control: "text" },
-    $padding: { control: "text" },
-    $fontSize: { control: "text" },
-    $fontWeight: { control: "number" },
-    $backgroundColor: { control: "color" },
-    $color: { control: "color" },
-    $hoverBackgroundColor: { control: "color" },
-    $hoverColor: { control: "color" },
-    $borderRadius: { control: "text" },
+    $buttonWidth: { control: "text" },
+    $buttonHeight: { control: "text" },
+    $buttonPadding: { control: "text" },
+    $buttonFontSize: { control: "text" },
+    $buttonFontWeight: { control: "number" },
+    $buttonBackgroundColor: { control: "color" },
+    $buttonColor: { control: "color" },
+    $buttonHoverBackgroundColor: { control: "color" },
+    $buttonHoverColor: { control: "color" },
+    $buttonBorderRadius: { control: "text" },
   },
 } satisfies Meta<typeof Button>;
 
@@ -23,7 +23,7 @@ type Story = StoryObj<typeof Button>;
 
 const DefaultButton = {
   args: {
-    label: "TEST",
+    buttonLabel: "TEST",
   },
 } satisfies Story;
 
