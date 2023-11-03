@@ -1,50 +1,42 @@
-import { defaultPalette } from "@/resources";
-import {
-  CommonButtonAttributes,
-  CommonButtonProps,
-} from "@/types/component/button";
 import styled from "styled-components";
+import { defaultPalette } from "@/resources";
+import { ButtonAttributes } from "@/types/component/button";
+import { propsMapper } from "@/utils";
 
-const CommonButton = ({
-  buttonLabel = "",
-  isButtonDisabled = false,
-  $buttonWidth = "fit-content",
-  $buttonHeight = "fit-content",
-  $buttonPadding = "10px",
-  $buttonFontSize = "16px",
-  $buttonFontWeight = 400,
-  $buttonBackgroundColor = defaultPalette.primaryColor,
-  $buttonColor = defaultPalette.mainFontColor,
-  $buttonHoverBackgroundColor = defaultPalette.lightPrimaryColor,
-  $buttonHoverColor = defaultPalette.mainFontColor,
-  $buttonBorderRadius = "10px",
-  onClick = () => {},
-  className = "",
-}: CommonButtonProps) => {
-  return (
-    <StyledCommonButton
-      $buttonWidth={$buttonWidth}
-      $buttonHeight={$buttonHeight}
-      $buttonPadding={$buttonPadding}
-      $buttonFontSize={$buttonFontSize}
-      $buttonFontWeight={$buttonFontWeight}
-      $buttonBackgroundColor={$buttonBackgroundColor}
-      $buttonColor={$buttonColor}
-      $buttonHoverBackgroundColor={$buttonHoverBackgroundColor}
-      $buttonHoverColor={$buttonHoverColor}
-      $buttonBorderRadius={$buttonBorderRadius}
-      onClick={onClick}
-      disabled={isButtonDisabled}
-      className={className}
-    >
-      {buttonLabel}
-    </StyledCommonButton>
-  );
+interface ButtonProps extends ButtonAttributes {
+  buttonLabel: string;
+}
+
+const defaultProps: ButtonProps = {
+  buttonLabel: "",
+  disabled: false,
+  $buttonWidth: "fit-content",
+  $buttonHeight: "fit-content",
+  $buttonPadding: "10px",
+  $buttonFontSize: "16px",
+  $buttonFontWeight: 400,
+  $buttonBackgroundColor: defaultPalette.primaryColor,
+  $buttonColor: defaultPalette.mainFontColor,
+  $buttonHoverBackgroundColor: defaultPalette.lightPrimaryColor,
+  $buttonHoverColor: defaultPalette.mainFontColor,
+  $buttonBorderRadius: "10px",
+  onClick: () => {},
+  className: "",
 };
 
+const CommonButton = (props: ButtonProps) => {
+  const { buttonLabel, ...etcProps } = propsMapper<ButtonProps>(
+    defaultProps,
+    props
+  );
+
+  return <StyledCommonButton {...etcProps}>{buttonLabel}</StyledCommonButton>;
+};
+
+export type { ButtonProps };
 export default CommonButton;
 
-const StyledCommonButton = styled.button<CommonButtonAttributes>`
+const StyledCommonButton = styled.button<ButtonAttributes>`
   width: ${(props) => props.$buttonWidth};
   height: ${(props) => props.$buttonHeight};
   padding: ${(props) => props.$buttonPadding};

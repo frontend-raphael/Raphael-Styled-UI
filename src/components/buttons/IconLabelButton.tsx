@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { StyledCommonButton } from "./CommonButton";
-import { CommonButtonProps } from "@/types/component";
-import IconImage, { IconImageProps } from "../images/IconImage";
 import { defaultPalette } from "@/resources";
 import { RaphaelSize } from "@/types/css";
+import { IconImage, IconImageProps } from "../images";
+import { ButtonProps, StyledCommonButton } from ".";
+import { propsMapper } from "@/utils";
 
 type IconLabelButtonGravity = "LEFT" | "RIGHT";
 
@@ -12,70 +12,59 @@ interface IconLabelButtonImageAttributes extends IconImageProps {
   $IconLabelButtonSpace?: RaphaelSize;
 }
 
-type IconLabelButtonProps = CommonButtonProps & IconLabelButtonImageAttributes;
+type IconLabelButtonProps = ButtonProps & IconLabelButtonImageAttributes;
 
-const IconLabelButton = ({
-  buttonLabel = "",
-  src = "https://placehold.co/24x24",
-  isButtonDisabled = false,
-  $IconLabelButtonGravity = "LEFT",
-  $iconImageSize = "24px",
-  $IconLabelButtonSpace = "4px",
-  $imageBorderRadius = "50%",
-  $buttonWidth = "fit-content",
-  $buttonHeight = "fit-content",
-  $buttonPadding = "10px",
-  $buttonFontSize = "16px",
-  $buttonFontWeight = 400,
-  $buttonBackgroundColor = defaultPalette.primaryColor,
-  $buttonColor = defaultPalette.mainFontColor,
-  $buttonHoverBackgroundColor = defaultPalette.lightPrimaryColor,
-  $buttonHoverColor = defaultPalette.mainFontColor,
-  $buttonBorderRadius = "10px",
-  onClick = () => {},
-  className = "",
-}: IconLabelButtonProps) => {
+const defaultProps: IconLabelButtonProps = {
+  buttonLabel: "",
+  src: "https://placehold.co/24x24",
+  disabled: false,
+  $IconLabelButtonGravity: "LEFT",
+  $iconImageSize: "24px",
+  $IconLabelButtonSpace: "4px",
+  $imageBorderRadius: "50%",
+  $buttonWidth: "fit-content",
+  $buttonHeight: "fit-content",
+  $buttonPadding: "10px",
+  $buttonFontSize: "16px",
+  $buttonFontWeight: 400,
+  $buttonBackgroundColor: defaultPalette.primaryColor,
+  $buttonColor: defaultPalette.mainFontColor,
+  $buttonHoverBackgroundColor: defaultPalette.lightPrimaryColor,
+  $buttonHoverColor: defaultPalette.mainFontColor,
+  $buttonBorderRadius: "10px",
+  onClick: () => {},
+  className: "",
+};
+
+const IconLabelButton = (props: IconLabelButtonProps) => {
+  const { buttonLabel, className, disabled, onClick, ...etcAttributes } =
+    propsMapper<IconLabelButtonProps>(defaultProps, props);
+
   return (
     <StyledCommonButton
-      $buttonWidth={$buttonWidth}
-      $buttonHeight={$buttonHeight}
-      $buttonPadding={$buttonPadding}
-      $buttonFontSize={$buttonFontSize}
-      $buttonFontWeight={$buttonFontWeight}
-      $buttonBackgroundColor={$buttonBackgroundColor}
-      $buttonColor={$buttonColor}
-      $buttonHoverBackgroundColor={$buttonHoverBackgroundColor}
-      $buttonHoverColor={$buttonHoverColor}
-      $buttonBorderRadius={$buttonBorderRadius}
+      {...etcAttributes}
+      disabled={disabled}
       onClick={onClick}
-      disabled={isButtonDisabled}
       className={className}
     >
       <StyledIconLabelButtonContentWrapper>
-        {$IconLabelButtonGravity === "LEFT" && (
-          <StyledIconLabelButtonImage
-            src={src}
-            $imageBorderRadius={$imageBorderRadius}
-            $iconImageSize={$iconImageSize}
-            $IconLabelButtonGravity={$IconLabelButtonGravity}
-            $IconLabelButtonSpace={$IconLabelButtonSpace}
-          />
+        {etcAttributes.$IconLabelButtonGravity === "LEFT" && (
+          <StyledIconLabelButtonImage {...etcAttributes} />
         )}
         {buttonLabel}
-        {$IconLabelButtonGravity === "RIGHT" && (
-          <StyledIconLabelButtonImage
-            src={src}
-            $imageBorderRadius={$imageBorderRadius}
-            $iconImageSize={$iconImageSize}
-            $IconLabelButtonGravity={$IconLabelButtonGravity}
-            $IconLabelButtonSpace={$IconLabelButtonSpace}
-          />
+        {etcAttributes.$IconLabelButtonGravity === "RIGHT" && (
+          <StyledIconLabelButtonImage {...etcAttributes} />
         )}
       </StyledIconLabelButtonContentWrapper>
     </StyledCommonButton>
   );
 };
 
+export type {
+  IconLabelButtonGravity,
+  IconLabelButtonImageAttributes,
+  IconLabelButtonProps,
+};
 export default IconLabelButton;
 
 const StyledIconLabelButtonContentWrapper = styled.div`
@@ -96,4 +85,4 @@ const StyledIconLabelButtonImage = styled(
       : 0};
 `;
 
-export { StyledIconLabelButtonContentWrapper };
+export { StyledIconLabelButtonContentWrapper, StyledIconLabelButtonImage };

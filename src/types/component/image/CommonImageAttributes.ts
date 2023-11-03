@@ -7,8 +7,4 @@ interface CommonImageAttributes extends CommonComponentProps {
   $imageBorderRadius?: RaphaelSize;
 }
 
-interface CommonImageProps extends CommonImageAttributes {
-  src: string;
-}
-
-export type { CommonImageAttributes, CommonImageProps };
+export type { CommonImageAttributes };

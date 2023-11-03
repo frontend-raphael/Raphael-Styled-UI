@@ -1,24 +1,26 @@
-import { CommonImageAttributes, CommonImageProps } from "@/types/component";
 import styled from "styled-components";
+import { CommonImageAttributes } from "@/types/component";
+import { propsMapper } from "@/utils";
 
-const CommonImage = ({
-  src = "",
-  $imageWidth = "fit-content",
-  $imageHeight = "fit-content",
-  $imageBorderRadius = "0px",
-  className = "",
-}: CommonImageProps) => {
+interface ImageProps extends CommonImageAttributes {
+  src: string;
+}
+
+const defaultProps: ImageProps = {
+  src: "",
+  $imageWidth: "fit-content",
+  $imageHeight: "fit-content",
+  $imageBorderRadius: "0px",
+  className: "",
+};
+
+const CommonImage = (props: ImageProps) => {
   return (
-    <StyledCommonImage
-      src={src}
-      $imageWidth={$imageWidth}
-      $imageHeight={$imageHeight}
-      $imageBorderRadius={$imageBorderRadius}
-      className={className}
-    />
+    <StyledCommonImage {...propsMapper<ImageProps>(defaultProps, props)} />
   );
 };
 
+export type { ImageProps };
 export default CommonImage;
 
 const StyledCommonImage = styled.img<CommonImageAttributes>`

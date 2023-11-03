@@ -5,19 +5,18 @@ interface CommonButtonAttributes extends CommonComponentProps {
   $buttonWidth?: RaphaelSize;
   $buttonHeight?: RaphaelSize;
   $buttonPadding?: RaphaelSize;
+  $buttonBorderRadius?: RaphaelSize;
+  disabled?: boolean;
+  onClick?: () => void;
+}
+
+interface ButtonAttributes extends CommonButtonAttributes {
   $buttonFontSize?: RaphaelSize;
   $buttonFontWeight?: number;
   $buttonBackgroundColor?: RaphaelColor;
   $buttonColor?: RaphaelColor;
   $buttonHoverBackgroundColor?: RaphaelColor;
   $buttonHoverColor?: RaphaelColor;
-  $buttonBorderRadius?: RaphaelSize;
-  onClick?: () => void;
 }
 
-interface CommonButtonProps extends CommonButtonAttributes {
-  buttonLabel: string;
-  isButtonDisabled?: boolean;
-}
-
-export type { CommonButtonAttributes, CommonButtonProps };
+export type { CommonButtonAttributes, ButtonAttributes };

@@ -1,3 +1,3 @@
-export type { CommonComponentProps as CommonComponentProps } from "./CommonComponentProps";
+export type * from "./common";
 export type * from "./button";
 export type * from "./image";
