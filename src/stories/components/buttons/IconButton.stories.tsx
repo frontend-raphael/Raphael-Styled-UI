@@ -1,18 +1,18 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { IconButton } from "@/components/buttons";
+import { IconLabelButton } from "@/components/buttons";
 
 const meta = {
-  component: IconButton,
-  title: "components/buttons/IconButton",
+  component: IconLabelButton,
+  title: "components/buttons/IconLabelButton",
   tags: ["autodocs"],
   argTypes: {
     src: { control: "text" },
-    $iconButtonGravity: {
+    $IconLabelButtonGravity: {
       options: ["LEFT", "RIGHT"],
       control: { type: "radio" },
     },
     $imageBorderRadius: { control: "text" },
-    $iconButtonSpace: { control: "text" },
+    $IconLabelButtonSpace: { control: "text" },
     $buttonWidth: { control: "text" },
     $buttonHeight: { control: "text" },
     $buttonPadding: { control: "text" },
@@ -24,10 +24,10 @@ const meta = {
     $buttonHoverColor: { control: "color" },
     $buttonBorderRadius: { control: "text" },
   },
-} satisfies Meta<typeof IconButton>;
+} satisfies Meta<typeof IconLabelButton>;
 
 export default meta;
-type Story = StoryObj<typeof IconButton>;
+type Story = StoryObj<typeof IconLabelButton>;
 
 const DefaultButton = {
   args: {

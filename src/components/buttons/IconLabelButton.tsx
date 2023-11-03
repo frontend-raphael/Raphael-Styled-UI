@@ -5,22 +5,22 @@ import IconImage, { IconImageProps } from "../images/IconImage";
 import { defaultPalette } from "@/resources";
 import { RaphaelSize } from "@/types/css";
 
-type IconButtonGravity = "LEFT" | "RIGHT";
+type IconLabelButtonGravity = "LEFT" | "RIGHT";
 
-interface IconButtonImageAttributes extends IconImageProps {
-  $iconButtonGravity?: IconButtonGravity;
-  $iconButtonSpace?: RaphaelSize;
+interface IconLabelButtonImageAttributes extends IconImageProps {
+  $IconLabelButtonGravity?: IconLabelButtonGravity;
+  $IconLabelButtonSpace?: RaphaelSize;
 }
 
-type IconButtonProps = CommonButtonProps & IconButtonImageAttributes;
+type IconLabelButtonProps = CommonButtonProps & IconLabelButtonImageAttributes;
 
-const IconButton = ({
+const IconLabelButton = ({
   buttonLabel = "",
   src = "https://placehold.co/24x24",
   isButtonDisabled = false,
-  $iconButtonGravity = "LEFT",
+  $IconLabelButtonGravity = "LEFT",
   $iconImageSize = "24px",
-  $iconButtonSpace = "4px",
+  $IconLabelButtonSpace = "4px",
   $imageBorderRadius = "50%",
   $buttonWidth = "fit-content",
   $buttonHeight = "fit-content",
@@ -34,7 +34,7 @@ const IconButton = ({
   $buttonBorderRadius = "10px",
   onClick = () => {},
   className = "",
-}: IconButtonProps) => {
+}: IconLabelButtonProps) => {
   return (
     <StyledCommonButton
       $buttonWidth={$buttonWidth}
@@ -51,45 +51,49 @@ const IconButton = ({
       disabled={isButtonDisabled}
       className={className}
     >
-      <StyledIconButtonContentWrapper>
-        {$iconButtonGravity === "LEFT" && (
-          <StyledIconButtonImage
+      <StyledIconLabelButtonContentWrapper>
+        {$IconLabelButtonGravity === "LEFT" && (
+          <StyledIconLabelButtonImage
             src={src}
             $imageBorderRadius={$imageBorderRadius}
             $iconImageSize={$iconImageSize}
-            $iconButtonGravity={$iconButtonGravity}
-            $iconButtonSpace={$iconButtonSpace}
+            $IconLabelButtonGravity={$IconLabelButtonGravity}
+            $IconLabelButtonSpace={$IconLabelButtonSpace}
           />
         )}
         {buttonLabel}
-        {$iconButtonGravity === "RIGHT" && (
-          <StyledIconButtonImage
+        {$IconLabelButtonGravity === "RIGHT" && (
+          <StyledIconLabelButtonImage
             src={src}
             $imageBorderRadius={$imageBorderRadius}
             $iconImageSize={$iconImageSize}
-            $iconButtonGravity={$iconButtonGravity}
-            $iconButtonSpace={$iconButtonSpace}
+            $IconLabelButtonGravity={$IconLabelButtonGravity}
+            $IconLabelButtonSpace={$IconLabelButtonSpace}
           />
         )}
-      </StyledIconButtonContentWrapper>
+      </StyledIconLabelButtonContentWrapper>
     </StyledCommonButton>
   );
 };
 
-export default IconButton;
+export default IconLabelButton;
 
-const StyledIconButtonContentWrapper = styled.div`
+const StyledIconLabelButtonContentWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
 `;
 
-const StyledIconButtonImage = styled(IconImage)<IconButtonImageAttributes>`
+const StyledIconLabelButtonImage = styled(
+  IconImage
+)<IconLabelButtonImageAttributes>`
   margin-right: ${(props) =>
-    props.$iconButtonGravity === "LEFT" ? props.$iconButtonSpace : 0};
+    props.$IconLabelButtonGravity === "LEFT" ? props.$IconLabelButtonSpace : 0};
   margin-left: ${(props) =>
-    props.$iconButtonGravity === "RIGHT" ? props.$iconButtonSpace : 0};
+    props.$IconLabelButtonGravity === "RIGHT"
+      ? props.$IconLabelButtonSpace
+      : 0};
 `;
 
-export { StyledIconButtonContentWrapper };
+export { StyledIconLabelButtonContentWrapper };

@@ -1,2 +1,2 @@
 export { default as Button } from "./CommonButton";
-export { default as IconButton } from "./IconButton";
+export { default as IconLabelButton } from "./IconLabelButton";
