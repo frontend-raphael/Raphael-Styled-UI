@@ -1,1 +1,6 @@
-export { commonTexts as commonTexts } from "./texts";
+export {
+  commonComponentPropsDescription,
+  commonButtonAttributesDescription,
+  buttonAttributesDescription,
+  commonImageAttributesDescription,
+} from "./texts";

@@ -1,14 +1,22 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { IconImage } from "@/components";
+import { commonComponentPropsDescription } from "@/resources";
 
 const meta = {
   component: IconImage,
   title: "components/images/IconImage",
   tags: ["autodocs"],
   argTypes: {
-    src: { control: "text" },
-    $iconImageSize: { control: "text" },
-    $imageBorderRadius: { control: "text" },
+    src: { description: "아이콘 이미지의 URL", control: "text" },
+    $iconImageSize: {
+      description: `아이콘 이미지의 크기. 기본값은 "24px"로 설정되어 있습니다. 항상 가로 세로가 같습니다.`,
+      control: "text",
+    },
+    $imageBorderRadius: {
+      description: `아이콘 이미지의 모서리 둥글기. 기본값은 "50%"로 설정되어 있습니다.`,
+      control: "text",
+    },
+    className: { description: commonComponentPropsDescription.className },
   },
 } satisfies Meta<typeof IconImage>;
 
