@@ -17,7 +17,9 @@ const defaultProps: IconImageProps = {
 
 const IconImage = (props: IconImageProps) => {
   return (
-    <StyledIconImage {...propsMapper<IconImageProps>(defaultProps, props)} />
+    <StyledIconImage
+      {...propsMapper<IconImageProps, IconImageProps>(defaultProps, props)}
+    />
   );
 };
 

@@ -25,7 +25,7 @@ const defaultProps: ButtonProps = {
 };
 
 const CommonButton = (props: ButtonProps) => {
-  const { buttonLabel, ...etcProps } = propsMapper<ButtonProps>(
+  const { buttonLabel, ...etcProps } = propsMapper<ButtonProps, ButtonProps>(
     defaultProps,
     props
   );

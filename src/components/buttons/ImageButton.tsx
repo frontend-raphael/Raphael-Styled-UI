@@ -20,8 +20,10 @@ const defaultProps: ImageButtonProps = {
 };
 
 const ImageButton = (props: ImageButtonProps) => {
-  const { className, disabled, onClick, ...etcProps } =
-    propsMapper<ImageButtonProps>(defaultProps, props);
+  const { className, disabled, onClick, ...etcProps } = propsMapper<
+    ImageButtonProps,
+    ImageButtonProps
+  >(defaultProps, props);
 
   return (
     <>

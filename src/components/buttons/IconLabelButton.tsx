@@ -38,7 +38,7 @@ const defaultProps: IconLabelButtonProps = {
 
 const IconLabelButton = (props: IconLabelButtonProps) => {
   const { buttonLabel, className, disabled, onClick, ...etcAttributes } =
-    propsMapper<IconLabelButtonProps>(defaultProps, props);
+    propsMapper<IconLabelButtonProps, IconImageProps>(defaultProps, props);
 
   return (
     <StyledCommonButton

@@ -16,7 +16,9 @@ const defaultProps: ImageProps = {
 
 const CommonImage = (props: ImageProps) => {
   return (
-    <StyledCommonImage {...propsMapper<ImageProps>(defaultProps, props)} />
+    <StyledCommonImage
+      {...propsMapper<ImageProps, ImageProps>(defaultProps, props)}
+    />
   );
 };
 
