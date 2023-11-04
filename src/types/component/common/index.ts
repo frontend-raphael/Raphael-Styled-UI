@@ -1,1 +1,1 @@
-export type { CommonComponentProps } from "./CommonComponentProps";
+export type { CommonComponentAttributes } from "./CommonComponentAttributes";

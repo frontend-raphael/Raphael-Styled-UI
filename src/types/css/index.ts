@@ -1,2 +1,2 @@
-export type * from "./Color";
-export type * from "./Size";
+export type * from "./color";
+export type * from "./size";

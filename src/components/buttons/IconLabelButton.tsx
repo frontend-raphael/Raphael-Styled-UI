@@ -22,6 +22,7 @@ const defaultProps: IconLabelButtonProps = {
   $iconImageSize: "24px",
   $IconLabelButtonSpace: "4px",
   $imageBorderRadius: "50%",
+  loading: "eager",
   $buttonWidth: "fit-content",
   $buttonHeight: "fit-content",
   $buttonPadding: "10px",

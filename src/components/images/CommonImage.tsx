@@ -11,15 +11,17 @@ const defaultProps: ImageProps = {
   $imageWidth: "fit-content",
   $imageHeight: "fit-content",
   $imageBorderRadius: "0px",
+  loading: "eager",
   className: "",
 };
 
 const CommonImage = (props: ImageProps) => {
-  return (
-    <StyledCommonImage
-      {...propsMapper<ImageProps, ImageProps>(defaultProps, props)}
-    />
+  const { loading, ...etcProps } = propsMapper<ImageProps, ImageProps>(
+    defaultProps,
+    props
   );
+
+  return <StyledCommonImage {...etcProps} loading={loading} />;
 };
 
 export type { ImageProps };

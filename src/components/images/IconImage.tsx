@@ -4,7 +4,10 @@ import { ImageProps, Image } from ".";
 import { propsMapper } from "@/utils";
 
 interface IconImageProps
-  extends Pick<ImageProps, "$imageBorderRadius" | "className" | "src"> {
+  extends Pick<
+    ImageProps,
+    "$imageBorderRadius" | "className" | "src" | "loading"
+  > {
   $iconImageSize?: RaphaelSize;
 }
 
@@ -12,15 +15,16 @@ const defaultProps: IconImageProps = {
   src: "",
   $iconImageSize: "24px",
   $imageBorderRadius: "50%",
+  loading: "eager",
   className: "",
 };
 
 const IconImage = (props: IconImageProps) => {
-  return (
-    <StyledIconImage
-      {...propsMapper<IconImageProps, IconImageProps>(defaultProps, props)}
-    />
+  const { loading, ...etcProps } = propsMapper<ImageProps, ImageProps>(
+    defaultProps,
+    props
   );
+  return <StyledIconImage {...etcProps} loading={loading} />;
 };
 
 export type { IconImageProps };
