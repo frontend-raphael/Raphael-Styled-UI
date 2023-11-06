@@ -34,16 +34,8 @@ interface KeyboardInputStringAttributes
   type: "text" | "password";
 }
 
-interface KeyboardInputNumberAttributes
-  extends KeyboardInputAttributes<number> {
-  type: "number";
-  min: number;
-  max: number;
-}
-
 export type {
   CommonInputAttributes,
   KeyboardInputAttributes,
   KeyboardInputStringAttributes,
-  KeyboardInputNumberAttributes,
 };

@@ -27,6 +27,7 @@ const defaultProps: TextFieldProps = {
   $keyboardInputFocusColor: defaultPalette.mainFontColor,
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => {},
   onKeyPress: (e: React.KeyboardEvent<HTMLInputElement>) => {},
+  className: "",
 };
 
 const TextField = (props: TextFieldProps) => {
