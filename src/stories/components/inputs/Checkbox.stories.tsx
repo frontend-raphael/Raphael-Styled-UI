@@ -18,6 +18,7 @@ const meta = {
     },
     disabled: {
       description: ``,
+      control: "boolean",
     },
     $checkboxSize: {
       description: ``,
@@ -49,7 +50,11 @@ const DefaultCheckbox = {
   args: {
     $checkedImg: "https://www.svgrepo.com/show/510900/checkbox-check.svg",
     $uncheckedImg: "https://www.svgrepo.com/show/510902/checkbox-unchecked.svg",
+    $disabledImg: "https://www.svgrepo.com/show/510781/add-minus-square.svg",
   },
+} satisfies Story;
+
+const EventCheckbox = {
   render: () => {
     const [checked, setChecked] = useState(false);
 
@@ -64,10 +69,10 @@ const DefaultCheckbox = {
         checked={checked}
         $checkedImg="https://www.svgrepo.com/show/510900/checkbox-check.svg"
         $uncheckedImg="https://www.svgrepo.com/show/510902/checkbox-unchecked.svg"
-        $disabledImg=""
+        $disabledImg="https://www.svgrepo.com/show/510781/add-minus-square.svg"
       />
     );
   },
 } satisfies Story;
 
-export { DefaultCheckbox };
+export { DefaultCheckbox, EventCheckbox };
