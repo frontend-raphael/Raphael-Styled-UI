@@ -1,10 +1,11 @@
 export { default as TextField } from "./TextField";
-export { default as ValidCheckTextField } from "./ValidCheckTextField";
+export { default as Checkbox } from "./Checkbox";
 
-export type { ValidCheckTextFieldProps } from "./ValidCheckTextField";
+export type { CheckboxAttributes, CheckboxProps } from "./Checkbox";
 
 export { StyledTextField } from "./TextField";
 export {
-  StyledValidCheckTextFieldWrapper,
-  StyledMessageWrapper,
-} from "./ValidCheckTextField";
+  StyledCheckboxWrapper,
+  StyledCheckboxInput,
+  StyledCheckboxImg,
+} from "./Checkbox";

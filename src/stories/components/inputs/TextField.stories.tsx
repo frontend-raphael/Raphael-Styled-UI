@@ -103,7 +103,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof Image>;
 
-const DefaultTextField = {};
+const DefaultTextField = {} satisfies Story;
 
 const EventTextField = {
   render: () => {
