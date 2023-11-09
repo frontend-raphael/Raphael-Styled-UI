@@ -61,14 +61,14 @@ const EventImageCheckbox = {
   render: () => {
     const [checked, setChecked] = useState(false);
 
-    const setOnClickListener = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const setOnChangeListener = (e: React.ChangeEvent<HTMLInputElement>) => {
       setChecked(!checked);
     };
 
     return (
       <ImageCheckbox
         value={"TEST"}
-        onChange={setOnClickListener}
+        onChange={setOnChangeListener}
         checked={checked}
         $checkedImg="https://drive.google.com/uc?id=17Y64ZSwwOKIpctSc-EG4kDSLwNQM0uUk"
         $uncheckedImg="https://drive.google.com/uc?id=1lz9B3L1fbR593mysZmjXZ7YbGWgJb9mU"
