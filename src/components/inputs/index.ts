@@ -1,11 +1,14 @@
 export { default as TextField } from "./TextField";
-export { default as Checkbox } from "./Checkbox";
+export { default as ImageCheckbox } from "./ImageCheckbox";
 
-export type { CheckboxAttributes, CheckboxProps } from "./Checkbox";
+export type {
+  ImageCheckboxAttributes,
+  ImageCheckboxProps,
+} from "./ImageCheckbox";
 
 export { StyledTextField } from "./TextField";
 export {
-  StyledCheckboxWrapper,
-  StyledCheckboxInput,
-  StyledCheckboxImg,
-} from "./Checkbox";
+  StyledImageCheckboxWrapper,
+  StyledImageCheckboxInput,
+  StyledImageCheckboxImg,
+} from "./ImageCheckbox";

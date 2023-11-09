@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Checkbox } from "@/components";
+import { ImageCheckbox } from "@/components";
 import { commonComponentPropsDescription } from "@/resources";
 import { useState } from "react";
 
 const meta = {
-  component: Checkbox,
-  title: "components/inputs/Checkbox",
+  component: ImageCheckbox,
+  title: "components/inputs/ImageCheckbox",
   tags: ["autodocs"],
   argTypes: {
     value: {
@@ -20,7 +20,7 @@ const meta = {
       description: ``,
       control: "boolean",
     },
-    $checkboxSize: {
+    $imageCheckboxSize: {
       description: ``,
       control: "text",
     },
@@ -46,15 +46,18 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof Image>;
 
-const DefaultCheckbox = {
+const DefaultImageCheckbox = {
   args: {
-    $checkedImg: "https://www.svgrepo.com/show/510900/checkbox-check.svg",
-    $uncheckedImg: "https://www.svgrepo.com/show/510902/checkbox-unchecked.svg",
-    $disabledImg: "https://www.svgrepo.com/show/510781/add-minus-square.svg",
+    $checkedImg:
+      "https://drive.google.com/uc?id=17Y64ZSwwOKIpctSc-EG4kDSLwNQM0uUk",
+    $uncheckedImg:
+      "https://drive.google.com/uc?id=1lz9B3L1fbR593mysZmjXZ7YbGWgJb9mU",
+    $disabledImg:
+      "https://drive.google.com/uc?id=1KI5eBRE0E0CBlUZrWC0xBygFONqggVcl",
   },
 } satisfies Story;
 
-const EventCheckbox = {
+const EventImageCheckbox = {
   render: () => {
     const [checked, setChecked] = useState(false);
 
@@ -63,16 +66,16 @@ const EventCheckbox = {
     };
 
     return (
-      <Checkbox
+      <ImageCheckbox
         value={"TEST"}
         onChange={setOnClickListener}
         checked={checked}
-        $checkedImg="https://www.svgrepo.com/show/510900/checkbox-check.svg"
-        $uncheckedImg="https://www.svgrepo.com/show/510902/checkbox-unchecked.svg"
-        $disabledImg="https://www.svgrepo.com/show/510781/add-minus-square.svg"
+        $checkedImg="https://drive.google.com/uc?id=17Y64ZSwwOKIpctSc-EG4kDSLwNQM0uUk"
+        $uncheckedImg="https://drive.google.com/uc?id=1lz9B3L1fbR593mysZmjXZ7YbGWgJb9mU"
+        $disabledImg="https://drive.google.com/uc?id=1KI5eBRE0E0CBlUZrWC0xBygFONqggVcl"
       />
     );
   },
 } satisfies Story;
 
-export { DefaultCheckbox, EventCheckbox };
+export { DefaultImageCheckbox, EventImageCheckbox };
