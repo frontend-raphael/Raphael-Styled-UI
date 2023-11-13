@@ -25,7 +25,7 @@ const defaultImageCheckbox: ImageCheckboxProps = {
   $checkedImg: "",
   $uncheckedImg: "",
   $disabledImg: "",
-  $imageCheckboxSize: "24px",
+  $imageCheckboxSize: "20px",
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => {},
   className: "",
 };
