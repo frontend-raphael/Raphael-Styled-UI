@@ -10,6 +10,7 @@ const defaultProps: ImageButtonProps = {
   $imageWidth: "fit-content",
   $imageHeight: "fit-content",
   $imageBorderRadius: "0px",
+  loading: "eager",
   disabled: false,
   $buttonWidth: "fit-content",
   $buttonHeight: "fit-content",

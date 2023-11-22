@@ -1,10 +1,11 @@
 import { RaphaelSize } from "@/types/css";
-import { CommonComponentProps } from "..";
+import { CommonComponentAttributes } from "..";
 
-interface CommonImageAttributes extends CommonComponentProps {
+interface CommonImageAttributes extends CommonComponentAttributes {
   $imageWidth?: RaphaelSize;
   $imageHeight?: RaphaelSize;
   $imageBorderRadius?: RaphaelSize;
+  loading?: "eager" | "lazy";
 }
 
 export type { CommonImageAttributes };

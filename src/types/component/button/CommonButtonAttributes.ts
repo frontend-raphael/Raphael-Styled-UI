@@ -1,7 +1,7 @@
 import { RaphaelColor, RaphaelSize } from "@/types/css";
-import { CommonComponentProps } from "..";
+import { CommonComponentAttributes } from "..";
 
-interface CommonButtonAttributes extends CommonComponentProps {
+interface CommonButtonAttributes extends CommonComponentAttributes {
   $buttonWidth?: RaphaelSize;
   $buttonHeight?: RaphaelSize;
   $buttonPadding?: RaphaelSize;
