@@ -7,7 +7,6 @@ interface CommonInputAttributes<T> extends CommonComponentAttributes {
   $inputBorderRadius?: RaphaelSize;
   disabled?: boolean;
   value: T;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 interface KeyboardInputAttributes<T> extends CommonInputAttributes<T> {
@@ -17,7 +16,7 @@ interface KeyboardInputAttributes<T> extends CommonInputAttributes<T> {
   size?: number;
   readonly?: boolean;
   autocomplete?: boolean;
-  onKeyPress?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  setOnEnterListener?: (value: string) => void;
   $keyboardInputPadding?: RaphaelSize;
   $keyboardInputFontSize?: RaphaelSize;
   $keyboardInputFontWeight?: number;

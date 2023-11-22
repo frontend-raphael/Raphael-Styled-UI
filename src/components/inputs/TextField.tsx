@@ -1,7 +1,12 @@
 import styled from "styled-components";
 import { defaultPalette } from "@/resources";
-import { KeyboardInputStringAttributes as TextFieldProps } from "@/types";
+import { KeyboardInputStringAttributes } from "@/types";
 import { propsMapper } from "@/utils";
+import { useState } from "react";
+
+interface TextFieldProps extends KeyboardInputStringAttributes {
+  setOnChangeListener: (value: string) => void;
+}
 
 const defaultProps: TextFieldProps = {
   type: "text",
@@ -25,18 +30,31 @@ const defaultProps: TextFieldProps = {
   $keyboardInputFocusBorderColor: defaultPalette.subColor,
   $keyboardInputFocusBackgroundColor: defaultPalette.primaryColor,
   $keyboardInputFocusColor: defaultPalette.mainFontColor,
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => {},
-  onKeyPress: (e: React.KeyboardEvent<HTMLInputElement>) => {},
+  setOnChangeListener: (value: string) => {},
+  setOnEnterListener: (value: string) => {},
   className: "",
 };
 
 const TextField = (props: TextFieldProps) => {
-  const allProps = propsMapper<TextFieldProps, TextFieldProps>(
-    defaultProps,
-    props
-  );
+  const { setOnChangeListener, value, setOnEnterListener, ...etcProps } =
+    propsMapper<TextFieldProps, TextFieldProps>(defaultProps, props);
+  const [textFieldValue, setOnTextFieldValue] = useState(value);
 
-  return <StyledTextField {...allProps} />;
+  return (
+    <StyledTextField
+      {...etcProps}
+      value={textFieldValue}
+      onChange={(e) => {
+        setOnChangeListener(e.target.value);
+        setOnTextFieldValue(e.target.value);
+      }}
+      onKeyUp={(e) => {
+        if (e.key === "Enter") {
+          setOnEnterListener(textFieldValue);
+        }
+      }}
+    />
+  );
 };
 
 export default TextField;

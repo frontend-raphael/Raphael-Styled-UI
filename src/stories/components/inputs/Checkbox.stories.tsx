@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Checkbox } from "@/components";
 import { commonComponentPropsDescription } from "@/resources";
-import { useState } from "react";
 
 const meta = {
   component: Checkbox,
@@ -44,7 +43,7 @@ const meta = {
       description: ``,
       control: "text",
     },
-    onChange: {
+    setOnCheckListener: {
       description: ``,
     },
     className: { description: commonComponentPropsDescription.className },
@@ -60,20 +59,11 @@ const DefaultCheckbox = {
 
 const EventCheckbox = {
   render: () => {
-    const [checked, setChecked] = useState(false);
-
-    const setOnChangeListener = (e: React.ChangeEvent<HTMLInputElement>) => {
-      console.log(e);
-      setChecked(!checked);
+    const setOnChangeListener = (value: string, checked: boolean) => {
+      console.log(value, checked);
     };
 
-    return (
-      <Checkbox
-        value={"TEST"}
-        onChange={setOnChangeListener}
-        checked={checked}
-      />
-    );
+    return <Checkbox value={"TEST"} setOnCheckListener={setOnChangeListener} />;
   },
 } satisfies Story;
 

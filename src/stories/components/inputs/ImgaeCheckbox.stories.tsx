@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { ImageCheckbox } from "@/components";
 import { commonComponentPropsDescription } from "@/resources";
-import { useState } from "react";
 
 const meta = {
   component: ImageCheckbox,
@@ -36,7 +35,7 @@ const meta = {
       description: ``,
       control: "text",
     },
-    onChange: {
+    setOnCheckListener: {
       description: ``,
     },
     className: { description: commonComponentPropsDescription.className },
@@ -59,17 +58,14 @@ const DefaultImageCheckbox = {
 
 const EventImageCheckbox = {
   render: () => {
-    const [checked, setChecked] = useState(false);
-
-    const setOnChangeListener = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setChecked(!checked);
+    const setOnChangeListener = (value: string, checked: boolean) => {
+      console.log(value, checked);
     };
 
     return (
       <ImageCheckbox
         value={"TEST"}
-        onChange={setOnChangeListener}
-        checked={checked}
+        setOnCheckListener={setOnChangeListener}
         $checkedImg="https://drive.google.com/uc?id=17Y64ZSwwOKIpctSc-EG4kDSLwNQM0uUk"
         $uncheckedImg="https://drive.google.com/uc?id=1lz9B3L1fbR593mysZmjXZ7YbGWgJb9mU"
         $disabledImg="https://drive.google.com/uc?id=1KI5eBRE0E0CBlUZrWC0xBygFONqggVcl"

@@ -1,21 +1,22 @@
 import styled from "styled-components";
 import { CommonInputAttributes, RaphaelSize } from "@/types";
 import { propsMapper } from "@/utils";
-import React from "react";
+import React, { useState } from "react";
 
 interface ImageCheckboxAttributes
   extends Pick<
     CommonInputAttributes<string>,
-    "className" | "disabled" | "value" | "onChange"
+    "className" | "disabled" | "value"
   > {
   $imageCheckboxSize?: RaphaelSize;
 }
 
 interface ImageCheckboxProps extends ImageCheckboxAttributes {
-  checked: boolean;
+  checked?: boolean;
   $checkedImg: string;
   $uncheckedImg: string;
   $disabledImg?: string;
+  setOnCheckListener: (value: string, checked: boolean) => void;
 }
 
 const defaultImageCheckbox: ImageCheckboxProps = {
@@ -26,19 +27,36 @@ const defaultImageCheckbox: ImageCheckboxProps = {
   $uncheckedImg: "",
   $disabledImg: "",
   $imageCheckboxSize: "20px",
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => {},
+  setOnCheckListener: (value: string, checked: boolean) => {},
   className: "",
 };
 
 const ImageCheckbox = (props: ImageCheckboxProps) => {
-  const { className, $imageCheckboxSize, ...etcProps } = propsMapper<
-    ImageCheckboxProps,
-    ImageCheckboxProps
-  >(defaultImageCheckbox, props);
+  const {
+    className,
+    $imageCheckboxSize,
+    value,
+    checked,
+    setOnCheckListener,
+    ...etcProps
+  } = propsMapper<ImageCheckboxProps, ImageCheckboxProps>(
+    defaultImageCheckbox,
+    props
+  );
+  const [isChecked, setIsChecked] = useState(checked);
 
   return (
     <StyledImageCheckboxWrapper className={className}>
-      <StyledImageCheckboxInput {...etcProps} type="checkbox" />
+      <StyledImageCheckboxInput
+        {...etcProps}
+        type="checkbox"
+        value={value}
+        checked={isChecked}
+        onChange={() => {
+          setOnCheckListener(value, !isChecked);
+          setIsChecked(!isChecked);
+        }}
+      />
       <StyledImageCheckboxImg $imageCheckboxSize={$imageCheckboxSize} />
     </StyledImageCheckboxWrapper>
   );

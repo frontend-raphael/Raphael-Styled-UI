@@ -1,6 +1,7 @@
 import { defaultPalette } from "@/resources";
 import { CommonInputAttributes, RaphaelColor, RaphaelSize } from "@/types";
 import { propsMapper } from "@/utils";
+import { useState } from "react";
 import styled from "styled-components";
 
 interface SliderAttributes extends CommonInputAttributes<number> {
@@ -12,7 +13,11 @@ interface SliderAttributes extends CommonInputAttributes<number> {
   $thumbSrc?: RaphaelColor;
 }
 
-const defaultProps: SliderAttributes = {
+interface SliderProps extends SliderAttributes {
+  setOnChangeListener: (value: number) => void;
+}
+
+const defaultProps: SliderProps = {
   value: 0,
   disabled: false,
   min: 0,
@@ -24,17 +29,28 @@ const defaultProps: SliderAttributes = {
   $sliderBackgroundColor: defaultPalette.lightPrimaryColor,
   $thumbSize: "24px",
   $thumbSrc: defaultPalette.subColor,
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => {},
+  setOnChangeListener: (value: number) => {},
   className: "",
 };
 
-const Slider = (props: SliderAttributes) => {
-  const allProps = propsMapper<SliderAttributes, SliderAttributes>(
-    defaultProps,
-    props
-  );
+const Slider = (props: SliderProps) => {
+  const { value, setOnChangeListener, ...etcProps } = propsMapper<
+    SliderProps,
+    SliderProps
+  >(defaultProps, props);
+  const [sliderValue, setSliderValue] = useState(value);
 
-  return <StyledSlider type="range" {...allProps} />;
+  return (
+    <StyledSlider
+      type="range"
+      {...etcProps}
+      value={sliderValue}
+      onChange={(e) => {
+        setOnChangeListener(Number(e.target.value));
+        setSliderValue(Number(e.target.value));
+      }}
+    />
+  );
 };
 
 export type { SliderAttributes };

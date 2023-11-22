@@ -1,6 +1,7 @@
 import { defaultPalette } from "@/resources";
 import { CommonInputAttributes, RaphaelColor, RaphaelSize } from "@/types";
 import { propsMapper } from "@/utils";
+import { useState } from "react";
 import styled from "styled-components";
 
 interface CheckboxAttributes extends CommonInputAttributes<string> {
@@ -10,7 +11,8 @@ interface CheckboxAttributes extends CommonInputAttributes<string> {
   $markerWidth?: RaphaelSize;
 }
 interface CheckboxProps extends CheckboxAttributes {
-  checked: boolean;
+  checked?: boolean;
+  setOnCheckListener: (value: string, checked: boolean) => void;
 }
 
 const defaultProps: CheckboxProps = {
@@ -24,22 +26,31 @@ const defaultProps: CheckboxProps = {
   $uncheckedBackgroundColor: defaultPalette.lightPrimaryColor,
   $markerColor: defaultPalette.subColor,
   $markerWidth: "2px",
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => {},
+  setOnCheckListener: (value: string, checked: boolean) => {},
   className: "",
 };
 
 const Checkbox = (props: CheckboxProps) => {
-  const { className, onChange, value, disabled, ...etcProps } = propsMapper<
-    CheckboxProps,
-    CheckboxProps
-  >(defaultProps, props);
+  const {
+    className,
+    setOnCheckListener,
+    value,
+    checked,
+    disabled,
+    ...etcProps
+  } = propsMapper<CheckboxProps, CheckboxProps>(defaultProps, props);
+  const [isChecked, setIsChecked] = useState(checked);
 
   return (
     <StyledCheckboxWrapper>
       <StyledCheckboxInput
-        onChange={onChange}
-        className={className}
         value={value}
+        checked={isChecked}
+        onChange={() => {
+          setOnCheckListener(value, !isChecked);
+          setIsChecked(!isChecked);
+        }}
+        className={className}
         disabled={disabled}
         type="checkbox"
         {...etcProps}

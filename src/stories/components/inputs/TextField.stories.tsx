@@ -90,10 +90,10 @@ const meta = {
       description: ``,
       control: "color",
     },
-    onChange: {
+    setOnChangeListener: {
       description: ``,
     },
-    onKeyPress: {
+    setOnEnterListener: {
       description: ``,
     },
     className: { description: commonComponentPropsDescription.className },
@@ -107,26 +107,20 @@ const DefaultTextField = {} satisfies Story;
 
 const EventTextField = {
   render: () => {
-    const [value, setValue] = useState("");
-
-    const setOnChangeListener = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setValue(e.target.value);
+    const setOnChangeListener = (value: string) => {
+      console.log(value);
     };
 
-    const setOnKeyPressListener = (
-      e: React.KeyboardEvent<HTMLInputElement>
-    ) => {
-      if (e.key === "Enter") {
-        alert(value);
-      }
+    const setOnEnterListener = (value: string) => {
+      console.log(value);
     };
 
     return (
       <TextField
         type="text"
-        value={value}
-        onChange={setOnChangeListener}
-        onKeyPress={setOnKeyPressListener}
+        value={""}
+        setOnChangeListener={setOnChangeListener}
+        setOnEnterListener={setOnEnterListener}
       />
     );
   },

@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Slider } from "@/components";
 import { commonComponentPropsDescription } from "@/resources";
-import { useState } from "react";
 
 const meta = {
   component: Slider,
@@ -68,14 +67,17 @@ const DefaultSlider = {
 
 const EventSlider = {
   render: () => {
-    const [value, setValue] = useState(0);
-
-    const setOnChangeListener = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setValue(Number(e.target.value));
+    const setOnChangeListener = (value: number) => {
+      console.log(value);
     };
 
     return (
-      <Slider value={value} onChange={setOnChangeListener} min={0} max={100} />
+      <Slider
+        value={0}
+        setOnChangeListener={setOnChangeListener}
+        min={0}
+        max={100}
+      />
     );
   },
 } satisfies Story;
