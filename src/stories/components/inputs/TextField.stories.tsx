@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { TextField } from "@/components";
 import { commonComponentPropsDescription } from "@/resources";
-import { useState } from "react";
 
 const meta = {
   component: TextField,
