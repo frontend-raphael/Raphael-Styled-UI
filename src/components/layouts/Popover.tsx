@@ -1,30 +1,40 @@
 import { CommonLayoutAttributes } from "@/types";
-import { propsMapper } from "@/utils";
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  FC,
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import styled from "styled-components";
 
-interface PopoverAttributes extends CommonLayoutAttributes {
+interface PopoverTriggerAttributes extends CommonLayoutAttributes {}
+
+interface PopoverContentAttributes extends CommonLayoutAttributes {
   $zIndex?: number;
 }
 
-interface PopoverProps extends PopoverAttributes {
-  trigger: React.ReactNode;
+interface PopoverCloseAttributes extends CommonLayoutAttributes {}
+
+interface PopoverComponent extends FC<CommonLayoutAttributes> {
+  Trigger: FC<PopoverTriggerAttributes>;
+  Content: FC<PopoverContentAttributes>;
+  Close: FC<PopoverCloseAttributes>;
 }
 
-const defaultProps: PopoverProps = {
-  trigger: <></>,
-  $zIndex: 1,
-  children: <></>,
-  className: "",
-};
+interface PopoverContextProps {
+  isTriggered: boolean;
+  setIsTriggered: React.Dispatch<React.SetStateAction<boolean>>;
+  triggerHeight: number;
+  setTriggerHeight: React.Dispatch<React.SetStateAction<number>>;
+}
 
-const Popover = (props: PopoverProps) => {
-  const { trigger, children, $zIndex, className } = propsMapper<
-    PopoverProps,
-    PopoverProps
-  >(defaultProps, props);
+const PopoverContext = createContext<PopoverContextProps | null>(null);
+
+const Popover: PopoverComponent = (props: CommonLayoutAttributes) => {
   const popoverRef = useRef<HTMLDivElement>(null);
-  const triggerRef = useRef<HTMLDivElement>(null);
   const [isTriggered, setIsTriggered] = useState(false);
   const [triggerHeight, setTriggerHeight] = useState(0);
 
@@ -41,14 +51,6 @@ const Popover = (props: PopoverProps) => {
   );
 
   useEffect(() => {
-    if (!triggerRef.current) {
-      return;
-    }
-
-    setTriggerHeight(triggerRef.current?.clientHeight);
-  }, []);
-
-  useEffect(() => {
     document.addEventListener("click", setOnOutsideClickListener);
 
     return () => {
@@ -57,41 +59,117 @@ const Popover = (props: PopoverProps) => {
   }, [setOnOutsideClickListener]);
 
   return (
-    <PopoverWrapper ref={popoverRef} className={className}>
-      <PopoverTrigger
-        ref={triggerRef}
-        onClick={() => {
-          setIsTriggered(!isTriggered);
-        }}
-      >
-        {trigger}
-      </PopoverTrigger>
-      {isTriggered && (
-        <PopoverContent $triggerHeight={triggerHeight} $zIndex={$zIndex}>
-          {children}
-        </PopoverContent>
-      )}
-    </PopoverWrapper>
+    <PopoverContext.Provider
+      value={{
+        isTriggered: isTriggered,
+        setIsTriggered: setIsTriggered,
+        triggerHeight: triggerHeight,
+        setTriggerHeight: setTriggerHeight,
+      }}
+    >
+      <StyledPopoverWrapper className={props.className}>
+        {props.children}
+      </StyledPopoverWrapper>
+    </PopoverContext.Provider>
   );
 };
 
-export type { PopoverAttributes, PopoverProps };
+const PopoverTrigger = (props: PopoverTriggerAttributes) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { setTriggerHeight, setIsTriggered } = useContext(PopoverContext)!;
 
-export default Popover;
+  useEffect(() => {
+    if (!ref.current) {
+      return;
+    }
 
-const PopoverWrapper = styled.div`
+    setTriggerHeight(ref.current?.clientHeight);
+  }, []);
+  return (
+    <StyledPopoverTrigger
+      ref={ref}
+      className={props.className}
+      onClick={() => {
+        setIsTriggered(true);
+      }}
+    >
+      {props.children}
+    </StyledPopoverTrigger>
+  );
+};
+
+const PopoverContent = (props: PopoverContentAttributes) => {
+  const { isTriggered, triggerHeight } = useContext(PopoverContext)!;
+  return (
+    <>
+      {isTriggered && (
+        <StyledPopoverContent
+          className={props.className}
+          $triggerHeight={triggerHeight}
+          $zIndex={props.$zIndex ?? 1}
+        >
+          {props.children}
+        </StyledPopoverContent>
+      )}
+    </>
+  );
+};
+
+const PopoverClose = (props: PopoverCloseAttributes) => {
+  const { setIsTriggered } = useContext(PopoverContext)!;
+  return (
+    <StyledPopoverClose
+      className={props.className}
+      onClick={() => {
+        setIsTriggered(false);
+      }}
+    >
+      {props.children}
+    </StyledPopoverClose>
+  );
+};
+
+Popover.Trigger = PopoverTrigger;
+Popover.Content = PopoverContent;
+Popover.Close = PopoverClose;
+
+export type {
+  PopoverTriggerAttributes,
+  PopoverContentAttributes,
+  PopoverCloseAttributes,
+};
+
+export { Popover, PopoverTrigger, PopoverContent, PopoverClose };
+
+const StyledPopoverWrapper = styled.div`
   width: fit-content;
   height: fit-content;
   position: relative;
 `;
 
-const PopoverTrigger = styled.div``;
+const StyledPopoverTrigger = styled.div`
+  width: fit-content;
+  height: fit-content;
+`;
 
-const PopoverContent = styled.div<{ $triggerHeight: number; $zIndex: number }>`
+const StyledPopoverContent = styled.div<{
+  $triggerHeight: number;
+  $zIndex: number;
+}>`
   position: absolute;
   left: 0;
   top: ${({ $triggerHeight }) => ($triggerHeight ? $triggerHeight : 0)};
   z-index: ${({ $zIndex }) => $zIndex};
 `;
 
-export { PopoverWrapper, PopoverTrigger, PopoverContent };
+const StyledPopoverClose = styled.div`
+  width: fit-content;
+  height: fit-content;
+`;
+
+export {
+  StyledPopoverWrapper,
+  StyledPopoverTrigger,
+  StyledPopoverContent,
+  StyledPopoverClose,
+};

@@ -28,13 +28,26 @@ const DefaultPopover = {
       justify-content: space-evenly;
     `;
     return (
-      <Popover trigger={<Button buttonLabel="Trigger" />}>
-        <Wrapper>
-          <Button buttonLabel="Item 1" />
-          <Button buttonLabel="Item 2" />
-          <Button buttonLabel="Item 3" />
-          <Button buttonLabel="Item 4" />
-        </Wrapper>
+      <Popover>
+        <Popover.Trigger>
+          <Button buttonLabel="Trigger" />
+        </Popover.Trigger>
+        <Popover.Content>
+          <Wrapper>
+            <Popover.Close>
+              <Button buttonLabel="Item 1" />
+            </Popover.Close>
+            <Popover.Close>
+              <Button buttonLabel="Item 2" />
+            </Popover.Close>
+            <Popover.Close>
+              <Button buttonLabel="Item 3" />
+            </Popover.Close>
+            <Popover.Close>
+              <Button buttonLabel="Item 4" />
+            </Popover.Close>
+          </Wrapper>
+        </Popover.Content>
       </Popover>
     );
   },
