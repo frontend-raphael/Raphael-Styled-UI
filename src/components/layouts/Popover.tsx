@@ -34,15 +34,15 @@ interface PopoverContextProps {
 const PopoverContext = createContext<PopoverContextProps | null>(null);
 
 const Popover: PopoverComponent = (props: CommonLayoutAttributes) => {
-  const popoverRef = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const [isTriggered, setIsTriggered] = useState(false);
   const [triggerHeight, setTriggerHeight] = useState(0);
 
   const setOnOutsideClickListener = useCallback(
     (mouseEvent: MouseEvent | React.MouseEvent) => {
       if (
-        popoverRef.current &&
-        !popoverRef.current.contains(mouseEvent.target as HTMLElement)
+        ref.current &&
+        !ref.current.contains(mouseEvent.target as HTMLElement)
       ) {
         setIsTriggered(false);
       }
@@ -67,7 +67,7 @@ const Popover: PopoverComponent = (props: CommonLayoutAttributes) => {
         setTriggerHeight: setTriggerHeight,
       }}
     >
-      <StyledPopoverWrapper className={props.className}>
+      <StyledPopoverWrapper ref={ref} className={props.className}>
         {props.children}
       </StyledPopoverWrapper>
     </PopoverContext.Provider>
@@ -76,7 +76,8 @@ const Popover: PopoverComponent = (props: CommonLayoutAttributes) => {
 
 const PopoverTrigger = (props: PopoverTriggerAttributes) => {
   const ref = useRef<HTMLDivElement>(null);
-  const { setTriggerHeight, setIsTriggered } = useContext(PopoverContext)!;
+  const { setTriggerHeight, setIsTriggered, isTriggered } =
+    useContext(PopoverContext)!;
 
   useEffect(() => {
     if (!ref.current) {
@@ -90,7 +91,7 @@ const PopoverTrigger = (props: PopoverTriggerAttributes) => {
       ref={ref}
       className={props.className}
       onClick={() => {
-        setIsTriggered(true);
+        setIsTriggered(!isTriggered);
       }}
     >
       {props.children}
