@@ -36,6 +36,8 @@ const Modal: ModalComponent = (props: CommonLayoutAttributes) => {
   );
 };
 
+// todo portal
+
 const ModalTrigger = (props: ModalTriggerAttributes) => {
   const { setIsModalOpen } = useContext(ModalContext)!;
 
