@@ -36,8 +36,6 @@ const Modal: ModalComponent = (props: CommonLayoutAttributes) => {
   );
 };
 
-// todo Portal용 추가
-
 const ModalTrigger = (props: ModalTriggerAttributes) => {
   const { setIsModalOpen } = useContext(ModalContext)!;
 
