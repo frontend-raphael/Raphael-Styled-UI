@@ -146,6 +146,7 @@ const StyledPopoverWrapper = styled.div`
   width: fit-content;
   height: fit-content;
   position: relative;
+  box-sizing: border-box;
 `;
 
 const StyledPopoverTrigger = styled.div`
