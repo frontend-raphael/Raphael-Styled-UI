@@ -28,7 +28,16 @@ export type {
   ModalCloseAttributes,
 } from "./Modal";
 
-export { Modal, ModalTrigger, ModalContent, ModalClose } from "./Modal";
+export {
+  Modal,
+  ModalTrigger,
+  ModalInsideTrigger,
+  ModalBackground,
+  ModalInsideBackground,
+  ModalContent,
+  ModalClose,
+  ModalInsideClose,
+} from "./Modal";
 
 export {
   StyledModalWrapper,

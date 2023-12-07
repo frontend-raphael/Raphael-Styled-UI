@@ -26,18 +26,38 @@ const DefaultModal = {
       height: 300px;
       background-color: #eaeaea;
     `;
+
+    const WrapperSS = styled.div`
+      width: 100px;
+      height: 100px;
+      background-color: #eaeaea;
+    `;
     return (
       <Modal>
         <Modal.Trigger>
           <Button buttonLabel="Open Modal" />
         </Modal.Trigger>
-        <Modal.Content isCancelable={true}>
-          <Wrapper>
-            <Modal.Close>
-              <Button buttonLabel="Close Modal" />
-            </Modal.Close>
-          </Wrapper>
-        </Modal.Content>
+        <Modal.Background>
+          <Modal.Content>
+            <Wrapper>
+              <Modal.Close>
+                <Button buttonLabel="Close First" />
+              </Modal.Close>
+              <Modal.InsideTrigger>
+                <Button buttonLabel="Open Modal Inside" />
+              </Modal.InsideTrigger>
+              <Modal.InsideBackground>
+                <Modal.Content>
+                  <Wrapper>
+                    <Modal.InsideClose>
+                      <Button buttonLabel="Close Inside" />
+                    </Modal.InsideClose>
+                  </Wrapper>
+                </Modal.Content>
+              </Modal.InsideBackground>
+            </Wrapper>
+          </Modal.Content>
+        </Modal.Background>
       </Modal>
     );
   },
