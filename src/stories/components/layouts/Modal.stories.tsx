@@ -27,11 +27,6 @@ const DefaultModal = {
       background-color: #eaeaea;
     `;
 
-    const WrapperSS = styled.div`
-      width: 100px;
-      height: 100px;
-      background-color: #eaeaea;
-    `;
     return (
       <Modal>
         <Modal.Trigger>

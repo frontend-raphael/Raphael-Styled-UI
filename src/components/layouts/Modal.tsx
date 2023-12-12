@@ -219,6 +219,7 @@ export {
 const StyledModalWrapper = styled.div`
   width: fit-content;
   height: fit-content;
+  box-sizing: border-box;
 `;
 
 const StyledModalBackground = styled.div<ModalBackgroundAttributes>`
