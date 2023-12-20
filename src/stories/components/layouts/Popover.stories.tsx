@@ -8,16 +8,12 @@ const meta = {
   title: "components/layouts/Popover",
   tags: ["autodocs"],
   argTypes: {
-    $zIndex: {
-      description: ``,
-      control: "number",
-    },
     className: { description: commonComponentPropsDescription.className },
   },
-} satisfies Meta<typeof Image>;
+} satisfies Meta<typeof Popover>;
 
 export default meta;
-type Story = StoryObj<typeof Image>;
+type Story = StoryObj<typeof Popover>;
 
 const DefaultPopover = {
   render: () => {

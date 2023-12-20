@@ -1,9 +1,9 @@
-import { CommonComponentProps } from "@/types/component";
+import { CommonComponentAttributes } from "@/types/component";
 
 // T is Component Props Type
 const propsMapper = <
-  T extends CommonComponentProps,
-  I extends Partial<T> & CommonComponentProps
+  T extends CommonComponentAttributes,
+  I extends Partial<T> & CommonComponentAttributes
 >(
   defaultProps: T,
   inputProps: I

@@ -7,16 +7,12 @@ const meta = {
   title: "components/layouts/Dropdown",
   tags: ["autodocs"],
   argTypes: {
-    $zIndex: {
-      description: ``,
-      control: "number",
-    },
     className: { description: commonComponentPropsDescription.className },
   },
-} satisfies Meta<typeof Image>;
+} satisfies Meta<typeof Dropdown>;
 
 export default meta;
-type Story = StoryObj<typeof Image>;
+type Story = StoryObj<typeof Dropdown>;
 
 const DefaultDropdown = {
   render: () => {

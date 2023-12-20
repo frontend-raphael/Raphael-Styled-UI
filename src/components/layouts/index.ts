@@ -84,3 +84,31 @@ export {
   StyledDropdownSubItem,
   StyledDropdownSeparator,
 } from "./Dropdown";
+
+export type {
+  CarouselAttributes,
+  CarouselProps,
+  CarouselItemAttributes,
+  CarouselIndicatorAttributes,
+  CarouselIndicatorItemAttributes,
+  CarouselRightControlAttributes,
+  CarouselLeftControlAttributes,
+} from "./Carousel";
+
+export {
+  Carousel,
+  CarouselItem,
+  CarouselIndicator,
+  CarouselIndicatorItem,
+  CarouselRightControl,
+  CarouselLeftControl,
+} from "./Carousel";
+
+export {
+  StyledCarouselWrapper,
+  StyledCarouselItem,
+  StyledCarouselIndicatorWrapper,
+  StyledCarouselIndicatorItem,
+  StyledCarouselRightControl,
+  StyledCarouselLeftControl,
+} from "./Carousel";
