@@ -6,12 +6,11 @@
 5. infinite
 6. centerFocus
 7. slide
-8. orientation
 */
 
 import { defaultPalette } from "@/resources";
 import { CommonLayoutAttributes, RaphaelColor, RaphaelSize } from "@/types";
-import { debounce, throttle } from "lodash";
+import { throttle } from "lodash";
 import React, {
   FC,
   createContext,
@@ -77,6 +76,8 @@ interface CarouselContextProps {
   setMoveValue: React.Dispatch<React.SetStateAction<number>>;
   isTransitionStop: boolean;
   setIsTransitionStop: React.Dispatch<React.SetStateAction<boolean>>;
+  nextItem: () => void;
+  prevItem: () => void;
 }
 
 const CarouselContext = createContext<CarouselContextProps | null>(null);
@@ -104,16 +105,41 @@ const Carousel: CarouselComponent = ({
   const isMouseMove = useRef<Boolean>(false);
   const mouseDownXPos = useRef<number>(0);
 
+  const generateCarouselState = () => {
+    const state = {
+      isSwipe: isSwipe,
+      isAuto: isAuto,
+      isInfinite: isInfinite,
+      isSlide: isSlide,
+    };
+
+    if (isSlide) {
+      state.isSwipe = false;
+      state.isAuto = false;
+    }
+    return state;
+  };
+
+  const carouselState = generateCarouselState();
+
+  const nextItem = () => {
+    setCurrentIdx((currentIdx + 1) % itemCount);
+  };
+
+  const prevItem = () => {
+    setCurrentIdx((currentIdx - 1 + itemCount) % itemCount);
+  };
+
   const checkEndMouseMoveEvent = (e: React.MouseEvent) => {
     if (ref.current) {
       const movementX = mouseDownXPos.current - e.clientX;
       const containerWidth = ref.current.getBoundingClientRect().width;
       const normalizedMoveValue = movementX / containerWidth;
 
-      if (normalizedMoveValue > 0.3) {
-        setCurrentIdx(currentIdx + 1);
-      } else if (normalizedMoveValue < -0.3) {
-        setCurrentIdx(currentIdx - 1);
+      if (normalizedMoveValue > 0.1) {
+        nextItem();
+      } else if (normalizedMoveValue < -0.1) {
+        prevItem();
       }
     }
 
@@ -151,23 +177,38 @@ const Carousel: CarouselComponent = ({
     isMouseMove.current = false;
   };
 
+  useEffect(() => {
+    let autoInterval: NodeJS.Timeout;
+    if (carouselState.isAuto) {
+      autoInterval = setInterval(nextItem, 3000);
+    }
+
+    return () => {
+      if (carouselState.isAuto) {
+        clearInterval(autoInterval);
+      }
+    };
+  }, [currentIdx]);
+
   return (
     <CarouselContext.Provider
       value={{
         currentIdx,
         setCurrentIdx,
         itemCount,
-        isSwipe,
+        isSwipe: carouselState.isSwipe,
         isControlVisible,
-        isAuto,
+        isAuto: carouselState.isAuto,
         isIndicatorVisible,
-        isInfinite,
-        isSlide,
+        isInfinite: carouselState.isInfinite,
+        isSlide: carouselState.isSlide,
         isHoverStop,
         moveValue,
         setMoveValue,
         isTransitionStop,
         setIsTransitionStop,
+        nextItem,
+        prevItem,
       }}
     >
       <StyledCarouselWrapper
@@ -209,10 +250,15 @@ const CarouselItem = (props: CarouselItemAttributes) => {
 };
 
 const CarouselIndicator = (props: CarouselIndicatorAttributes) => {
+  const { isIndicatorVisible } = useContext(CarouselContext)!;
   return (
-    <StyledCarouselIndicatorWrapper className={props.className}>
-      {props.children}
-    </StyledCarouselIndicatorWrapper>
+    <>
+      {isIndicatorVisible && (
+        <StyledCarouselIndicatorWrapper className={props.className}>
+          {props.children}
+        </StyledCarouselIndicatorWrapper>
+      )}
+    </>
   );
 };
 
@@ -234,36 +280,36 @@ const CarouselIndicatorItem = (props: CarouselIndicatorItemAttributes) => {
 };
 
 const CarouselRightControl = (props: CarouselRightControlAttributes) => {
-  const { currentIdx, setCurrentIdx } = useContext(CarouselContext)!;
-
-  const setOnClickListener = () => {
-    setCurrentIdx(currentIdx + 1);
-  };
+  const { isControlVisible, nextItem } = useContext(CarouselContext)!;
 
   return (
-    <StyledCarouselRightControl
-      className={props.className}
-      onClick={setOnClickListener}
-    >
-      {props.children}
-    </StyledCarouselRightControl>
+    <>
+      {isControlVisible && (
+        <StyledCarouselRightControl
+          className={props.className}
+          onClick={nextItem}
+        >
+          {props.children}
+        </StyledCarouselRightControl>
+      )}
+    </>
   );
 };
 
 const CarouselLeftControl = (props: CarouselLeftControlAttributes) => {
-  const { currentIdx, setCurrentIdx } = useContext(CarouselContext)!;
-
-  const setOnClickListener = () => {
-    setCurrentIdx(currentIdx - 1);
-  };
+  const { isControlVisible, prevItem } = useContext(CarouselContext)!;
 
   return (
-    <StyledCarouselLeftControl
-      className={props.className}
-      onClick={setOnClickListener}
-    >
-      {props.children}
-    </StyledCarouselLeftControl>
+    <>
+      {isControlVisible && (
+        <StyledCarouselLeftControl
+          className={props.className}
+          onClick={prevItem}
+        >
+          {props.children}
+        </StyledCarouselLeftControl>
+      )}
+    </>
   );
 };
 

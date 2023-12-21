@@ -22,7 +22,14 @@ const DefaultCarousel = {
       "https://picsum.photos/id/7/300/300",
     ];
     return (
-      <Carousel itemCount={3} width="300px" height="300px">
+      <Carousel
+        itemCount={3}
+        width="300px"
+        height="300px"
+        isControlVisible={true}
+        isIndicatorVisible={true}
+        isAuto={true}
+      >
         {itemList.map((value, index) => (
           <Carousel.Item key={value} itemIdx={index}>
             <Image src={value} />
