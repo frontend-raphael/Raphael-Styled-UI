@@ -104,6 +104,7 @@ const Carousel: CarouselComponent = ({
   const [isTransitionStop, setIsTransitionStop] = useState(false);
   const isMouseMove = useRef<Boolean>(false);
   const mouseDownXPos = useRef<number>(0);
+  const stopMouseMoveX = useRef<boolean>(false);
 
   const generateCarouselState = () => {
     const state = {
@@ -131,6 +132,14 @@ const Carousel: CarouselComponent = ({
   };
 
   const checkEndMouseMoveEvent = (e: React.MouseEvent) => {
+    isMouseMove.current = false;
+    setMoveValue(0);
+    setIsTransitionStop(false);
+    if (stopMouseMoveX.current) {
+      stopMouseMoveX.current = false;
+      return;
+    }
+
     if (ref.current) {
       const movementX = mouseDownXPos.current - e.clientX;
       const containerWidth = ref.current.getBoundingClientRect().width;
@@ -142,10 +151,6 @@ const Carousel: CarouselComponent = ({
         prevItem();
       }
     }
-
-    isMouseMove.current = false;
-    setMoveValue(0);
-    setIsTransitionStop(false);
   };
 
   const setOnMouseDown = (e: React.MouseEvent) => {
@@ -166,7 +171,17 @@ const Carousel: CarouselComponent = ({
     const containerWidth = ref.current.getBoundingClientRect().width;
     const normalizedMoveValue = movementX / containerWidth;
 
-    setMoveValue(normalizedMoveValue);
+    if (!carouselState.isInfinite) {
+      if (currentIdx === 0 && normalizedMoveValue < 0) {
+        stopMouseMoveX.current = true;
+        return;
+      } else if (currentIdx === itemCount - 1 && normalizedMoveValue > 0) {
+        stopMouseMoveX.current = true;
+        return;
+      }
+
+      setMoveValue(normalizedMoveValue);
+    }
   }, 200);
 
   const setOnMouseUp = (e: React.MouseEvent) => {
