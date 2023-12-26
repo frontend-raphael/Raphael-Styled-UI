@@ -13,6 +13,7 @@ import { CommonLayoutAttributes, RaphaelColor, RaphaelSize } from "@/types";
 import { throttle } from "lodash";
 import React, {
   FC,
+  cloneElement,
   createContext,
   useContext,
   useEffect,
@@ -101,10 +102,52 @@ const Carousel: CarouselComponent = ({
   const ref = useRef<HTMLDivElement>(null);
   const [currentIdx, setCurrentIdx] = useState(startIdx!);
   const [moveValue, setMoveValue] = useState(0);
-  const [isTransitionStop, setIsTransitionStop] = useState(false);
+  const [isTransitionStop, setIsTransitionStop] = useState(true);
   const isMouseMove = useRef<Boolean>(false);
   const mouseDownXPos = useRef<number>(0);
   const stopMouseMoveX = useRef<boolean>(false);
+
+  const getCarouselItemChildren = () => {
+    return React.Children.toArray(children).filter((child) => {
+      if (
+        React.isValidElement(child) &&
+        child.type.valueOf().hasOwnProperty("displayName")
+      ) {
+        return (child.type as any).displayName === "CarouselItem";
+      }
+      return false;
+    });
+  };
+
+  const getCarouselOtherChildren = () => {
+    return React.Children.toArray(children).filter((child) => {
+      if (
+        React.isValidElement(child) &&
+        child.type.valueOf().hasOwnProperty("displayName")
+      ) {
+        return (child.type as any).displayName !== "CarouselItem";
+      }
+      return false;
+    });
+  };
+
+  const getInfiniteChildren = () => {
+    const itemChildren = getCarouselItemChildren();
+    const startChild = itemChildren[0];
+    const endChild = itemChildren[itemCount - 1];
+    const newChildren = [
+      endChild,
+      ...itemChildren,
+      startChild,
+      ...getCarouselOtherChildren(),
+    ];
+
+    return newChildren.map((value, index) => {
+      return cloneElement(value as any, {
+        key: index,
+      });
+    });
+  };
 
   const generateCarouselState = () => {
     const state = {
@@ -118,17 +161,40 @@ const Carousel: CarouselComponent = ({
       state.isSwipe = false;
       state.isAuto = false;
     }
+
     return state;
   };
 
   const carouselState = generateCarouselState();
 
   const nextItem = () => {
-    setCurrentIdx((currentIdx + 1) % itemCount);
+    if (carouselState.isInfinite) {
+      setCurrentIdx(currentIdx + 1);
+
+      if (currentIdx === itemCount) {
+        setTimeout(() => {
+          setIsTransitionStop(true);
+          setCurrentIdx(1);
+        }, 500);
+      }
+    } else {
+      setCurrentIdx((currentIdx + 1) % itemCount);
+    }
   };
 
   const prevItem = () => {
-    setCurrentIdx((currentIdx - 1 + itemCount) % itemCount);
+    if (carouselState.isInfinite) {
+      setCurrentIdx(currentIdx - 1);
+
+      if (currentIdx === 1) {
+        setTimeout(() => {
+          setIsTransitionStop(true);
+          setCurrentIdx(itemCount);
+        }, 500);
+      }
+    } else {
+      setCurrentIdx((currentIdx - 1 + itemCount) % itemCount);
+    }
   };
 
   const checkEndMouseMoveEvent = (e: React.MouseEvent) => {
@@ -179,9 +245,9 @@ const Carousel: CarouselComponent = ({
         stopMouseMoveX.current = true;
         return;
       }
-
-      setMoveValue(normalizedMoveValue);
     }
+
+    setMoveValue(normalizedMoveValue);
   }, 200);
 
   const setOnMouseUp = (e: React.MouseEvent) => {
@@ -204,6 +270,12 @@ const Carousel: CarouselComponent = ({
       }
     };
   }, [currentIdx]);
+
+  useEffect(() => {
+    if (carouselState.isInfinite) {
+      setCurrentIdx(1);
+    }
+  }, []);
 
   return (
     <CarouselContext.Provider
@@ -243,7 +315,7 @@ const Carousel: CarouselComponent = ({
           e.preventDefault();
         }}
       >
-        {children}
+        {carouselState.isInfinite ? getInfiniteChildren() : children}
       </StyledCarouselWrapper>
     </CarouselContext.Provider>
   );
@@ -278,10 +350,14 @@ const CarouselIndicator = (props: CarouselIndicatorAttributes) => {
 };
 
 const CarouselIndicatorItem = (props: CarouselIndicatorItemAttributes) => {
-  const { setCurrentIdx } = useContext(CarouselContext)!;
+  const { setCurrentIdx, isInfinite } = useContext(CarouselContext)!;
 
   const setOnClickListener = () => {
-    setCurrentIdx(props.itemIdx);
+    if (isInfinite) {
+      setCurrentIdx(props.itemIdx + 1);
+    } else {
+      setCurrentIdx(props.itemIdx);
+    }
   };
 
   return (
