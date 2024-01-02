@@ -8,16 +8,12 @@ const meta = {
   title: "components/layouts/Modal",
   tags: ["autodocs"],
   argTypes: {
-    $zIndex: {
-      description: ``,
-      control: "number",
-    },
     className: { description: commonComponentPropsDescription.className },
   },
-} satisfies Meta<typeof Image>;
+} satisfies Meta<typeof Modal>;
 
 export default meta;
-type Story = StoryObj<typeof Image>;
+type Story = StoryObj<typeof Modal>;
 
 const DefaultModal = {
   render: () => {
